@@ -1,0 +1,6 @@
+{
+  "name": "borabulma",
+  "devDependencies": {
+    "bulma": "^0.2.3"
+  }
+}
