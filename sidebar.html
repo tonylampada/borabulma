@@ -12,9 +12,9 @@
         toggle: function(){
           Sidebar.show = !Sidebar.show;
           if(Sidebar.show){
-            $('#sidebar').removeClass('slideOutLeft').addClass('slideInLeft');
+            $('body').addClass('sidebar-active');
           } else {
-            $('#sidebar').removeClass('slideInLeft').addClass('slideOutLeft');
+            $('body').removeClass('sidebar-active');
           }
         }
       }
@@ -25,6 +25,44 @@
             min-width: 100%;
             z-index: 1024;
             box-shadow: 0 2px 3px hsla(0,0%,7%,.1),0 0 0 1px hsla(0,0%,7%,.1)
+        }
+        .app-main {
+            padding-top: 50px;
+            margin-left: 180px;
+            transform: translateZ(0)
+        }
+        .app-sidebar {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            bottom: 0;
+            padding: 20px 0 50px;
+            width: 180px;
+            min-width: 45px;
+            max-height: 100vh;
+            height: calc(100% - 50px);
+            /*z-index: 1023;*/
+            background: #fff;
+            box-shadow: 0 2px 3px hsla(0,0%,7%,.1),0 0 0 1px hsla(0,0%,7%,.1);
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation-name: slideInLeft;
+        }
+
+        @media screen and (max-width: 768px) {
+            .app-main {
+                margin-left:0
+            }
+            .app-sidebar {
+                animation-name: slideOutLeft;
+            }
+
+            body.sidebar-active .app-main {
+              margin-left: 180px;
+            }
+            body.sidebar-active .app-sidebar {
+              animation-name: slideInLeft;
+            }
         }
 
         .app-navbar .container {
@@ -41,28 +79,6 @@
             overflow: hidden;
             overflow-x: auto;
             white-space: nowrap
-        }
-        .app-sidebar {
-            position: fixed;
-            top: 50px;
-            left: 0;
-            bottom: 0;
-            padding: 20px 0 50px;
-            width: 180px;
-            min-width: 45px;
-            max-height: 100vh;
-            height: calc(100% - 50px);
-            z-index: 1023;
-            background: #fff;
-            box-shadow: 0 2px 3px hsla(0,0%,7%,.1),0 0 0 1px hsla(0,0%,7%,.1);
-            overflow-y: auto;
-            overflow-x: hidden
-        }
-
-        @media screen and (max-width: 768px) {
-            .app-sidebar {
-                transform:translate3d(-180px,0,0)
-            }
         }
 
         .app-sidebar .icon {
@@ -87,17 +103,6 @@
             margin: 0 10px 0 15px
         }
 
-        .app-main {
-            padding-top: 50px;
-            margin-left: 180px;
-            transform: translateZ(0)
-        }
-
-        @media screen and (max-width: 768px) {
-            .app-main {
-                margin-left:0
-            }
-        }
 
     </style>
 </head>
@@ -108,8 +113,8 @@
   <div class="hero-head">
     <nav class="nav">
       <div class="nav-left">
-        <a class="nav-item is-hidden-tablet">
-          <i aria-hidden="true" class="fa fa-bars" onclick="Sidebar.toggle()"></i>
+        <a class="nav-item is-hidden-tablet" onclick="Sidebar.toggle()">
+          <i aria-hidden="true" class="fa fa-bars"></i>
         </a>
         <a href="/" class="nav-item">Esquerda</a>
       </div>
@@ -132,7 +137,7 @@
 </section>
 
 
-<aside id="sidebar" class="menu app-sidebar animated slideInLeft">
+<aside id="sidebar" class="menu app-sidebar animated">
   <p class="menu-label">
     General
   </p> 
